@@ -138,6 +138,23 @@ async function fetchValues() {
 
 }
 
+function shuffle(array) {
+  let currentIndex = array.length;
+
+  // While there remain elements to shuffle...
+  while (currentIndex != 0) {
+
+    // Pick a remaining element...
+    let randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--;
+
+    // And swap it with the current element.
+    [array[currentIndex], array[randomIndex]] = [
+      array[randomIndex], array[currentIndex]];
+  }
+}
+
+
 async function initValues(forceSettingNewValues = false) {
 
     let fieldsToFill = Array.from(document.querySelectorAll(".grid-item"));
@@ -147,7 +164,7 @@ async function initValues(forceSettingNewValues = false) {
         while (fieldsToFill.length > 0) {
             const element = fieldsToFill.pop()
             if (!element.classList.contains("no-deselect") && currentGameValueIds[id] !== undefined && values[currentGameValueIds[id]] !== undefined) {
-                element.innerHTML = values[currentGameValueIds[id]].plain;
+                element.innerHTML = values[currentGameValueIds[id]];
                 if (element.id && currentGameSelectedValueIds.length > 0 && currentGameSelectedValueIds.indexOf(element.id) >= 0) {
                     element.classList.add("selected")
                 }
@@ -166,22 +183,17 @@ async function initValues(forceSettingNewValues = false) {
         console.error("ERROR: no values!")
         return;
     }
+    let valuesToShuffle = [...values.keys()];
+    shuffle(valuesToShuffle);
     const tempSelectedValuesToPreventDuplicates = [];
 
     while (fieldsToFill.length > 0) {
         const currentElementToFill = fieldsToFill.pop();
         if (!currentElementToFill.classList.contains("no-deselect")) {
-            let idOfUniqueValue = null;
-            while (idOfUniqueValue === null) {
-                const randomIndex = getRandomInt(1, Object.keys(values).length) - 1;
-                if (tempSelectedValuesToPreventDuplicates.indexOf(randomIndex) <= 0 && !!values[randomIndex]) {
-                    tempSelectedValuesToPreventDuplicates.push(randomIndex);
-                    idOfUniqueValue = randomIndex;
-                }
-
-            }
+            let idOfUniqueValue = valuesToShuffle.pop();
+            tempSelectedValuesToPreventDuplicates.push(idOfUniqueValue);
             try {
-                currentElementToFill.innerHTML = `${values[idOfUniqueValue].plain}`
+                currentElementToFill.innerHTML = `${values[idOfUniqueValue]}`
             } catch (e) {
                 console.log(e)
             }
