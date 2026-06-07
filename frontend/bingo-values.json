@@ -1,7 +1,6 @@
 [
 "\"This is the Iris Workshop, so we can be technical\"",
 "A slide with a bullet point list that is ill-typed",
-"Peter S. asks an oddball question",
 "Robbert asks a technical-deep question",
 "Ralf asks a technical-deep question",
 "A slide full of inference rules",
@@ -24,5 +23,7 @@
 "Custom-built Weakest Pre",
 "Later Count grows super-exponentially",
 "Ilya Sergei's CSL family tree is shown",
-"Someone verifies an actual program"
+"Someone verifies an actual program",
+"New kind of xProp for a new letter x",
+"Rocq universes mentioned"
 ]
