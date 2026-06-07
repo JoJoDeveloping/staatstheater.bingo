@@ -93,7 +93,8 @@ async function checkWin() {
 
 checkWin()
 
-function resetSelection(){
+async function resetSelection(){
+    await fetchValues();
     winNotification.classList.add("hidden")
     document.querySelectorAll(".grid-item").forEach(e =>e.classList.contains("no-deselect")? null:e.classList.remove("selected"))
     localStorage.removeItem("currentGameValueIds")

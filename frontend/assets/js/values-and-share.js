@@ -132,7 +132,8 @@ async function updateShareButtons(){
 
 
 async function fetchValues() {
-    const response = await fetch('./bingo-values.json');
+    const ms = Date.now();
+    const response = await fetch('./bingo-values.json?nocache='+ms);
     values = await response.json()
     localStorage.setItem("values", JSON.stringify(values));
 
